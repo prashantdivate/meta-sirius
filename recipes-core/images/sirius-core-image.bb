@@ -12,6 +12,7 @@ IMAGE_INSTALL= "\
         initscripts \
         helloworld \
         sysvinit-launch \
+	lolcat \
 "
 
 IMAGE_LINGUAS = " "
