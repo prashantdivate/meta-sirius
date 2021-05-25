@@ -10,9 +10,10 @@ IMAGE_INSTALL= "\
         busybox \
         sysvinit \
         initscripts \
-        helloworld \
         sysvinit-launch \
-	lolcat \
+        helloworld \
+	 lolcat \
+	 bluez5 \
 "
 
 IMAGE_LINGUAS = " "

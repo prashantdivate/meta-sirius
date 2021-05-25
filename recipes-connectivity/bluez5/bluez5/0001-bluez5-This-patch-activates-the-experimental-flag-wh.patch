@@ -1,0 +1,24 @@
+From 44479bf5eaee27775fcaa863936c982824d5ea6f Mon Sep 17 00:00:00 2001
+From: Prashant Divate <diwateprashant44@gmail.com>
+Date: Tue, 25 May 2021 17:56:13 +0530
+Subject: [PATCH] bluez5: This patch activates the experimental flag when running bluetoothd.
+			
+			-E, --experimental
+			    Enable experimental interfaces. Those interfaces are not
+			    guaranteed to be compatible or present in future releases.
+
+
+Index: bluez-5.48/src/bluetooth.service.in
+===================================================================
+--- bluez-5.48.orig/src/bluetooth.service.in
++++ bluez-5.48/src/bluetooth.service.in
+@@ -6,7 +6,7 @@ ConditionPathIsDirectory=/sys/class/blue
+ [Service]
+ Type=dbus
+ BusName=org.bluez
+-ExecStart=@libexecdir@/bluetoothd
++ExecStart=@libexecdir@/bluetoothd --experimental
+ NotifyAccess=main
+ #WatchdogSec=10
+ #Restart=on-failure
+
