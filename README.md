@@ -19,7 +19,7 @@ custom layer as introduced in the "Adding a new software layer" on the yocto bui
 ## I. Adding the custom layer to your build
 =================================================
 
-In order to use this layer, you need to make the build system aware ofit.
+In order to use this layer, you need to make the build system aware of it.
 
 Assuming the sirius layer exists at the top-level of your
 yocto build tree, you can add it to the build system by adding the
