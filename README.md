@@ -12,7 +12,7 @@ custom layer as introduced in the "Adding a new software layer" on the yocto bui
 ## Table of Contents
 =================
 
-  I.  Adding the custom layer to your build
+  I.  Adding the custom layer to your build \
   II. Building sirius-core-image
 
 
