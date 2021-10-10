@@ -39,9 +39,13 @@ In order to build image, initiate yocto build setup by running
 ```
 source setup-environment <build-dir>
 ```
-now run the below command to build image
+Run the below command to build basic image
 ```
 bitbake sirius-core-image
+```
+and to build SD card image (.wic)
+```
+bitbake sirius-core-image-sd-card
 ```
 
 # Contribute
