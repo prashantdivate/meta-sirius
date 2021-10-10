@@ -5,6 +5,7 @@ LICENSE = "MIT"
 inherit core-image
 
 IMAGE_INSTALL= "\
+	base-files \
         base-passwd \
         busybox \
         sysvinit \
