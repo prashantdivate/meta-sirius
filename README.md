@@ -1,6 +1,8 @@
 # meta-sirius
 
-Sirius is the brightest star in the night sky. Its name is derived from the Greek word. \
+**Why the name Sirius ?**
+In Greek, Sirius is the __brightest star__ in the night sky.
+
 This project/meta-layer includes all the necessary recipes intended to use in yocto project \
 for hands-on experience of creating own image adding supported recipes in the build.
 
