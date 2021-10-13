@@ -2,7 +2,7 @@ DESCRIPTION = "Minimal configuration os image."
 
 LICENSE = "MIT"
 
-inherit core-image
+inherit core-image buildhistory
 
 IMAGE_INSTALL= "\
 	base-files \
@@ -14,6 +14,8 @@ IMAGE_INSTALL= "\
 	lolcat \
 	bluez5 \
 "
+
+BUILDHISTORY_COMMIT = "5"
 
 IMAGE_LINGUAS = "en-us"
 
