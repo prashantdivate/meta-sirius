@@ -1,5 +1,7 @@
 # meta-sirius
 
+![meta-sirius](readme_media/logo.png)
+
 **Why the name Sirius ?**\
 In Greek, Sirius means the __brightest star__ in the night sky.
 
