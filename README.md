@@ -60,7 +60,7 @@ To get involved following things can be done
 
 - create an issue
 - fix an issue and create a pull request
-- see the pinned issues in the [bugtracker](https://github.com/prashantdivate/meta-sirius.git/issues)
+- see the pinned issues in the [bugtracker](https://github.com/prashantdivate/meta-sirius/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 
 # License
 Use of this project is governed by the MIT License found at [LICENSE](./LICENSE).
