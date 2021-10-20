@@ -1,5 +1,5 @@
 # meta-sirius
-![https://img.shields.io/badge/Supported%20languages-C%2Citbake%2CShell](https://img.shields.io/badge/Supported%20languages-C%2C^Bitbake%2CShell)
+![https://img.shields.io/badge/Supported%20languages-C%2Citbake%2CShell-informational](https://img.shields.io/badge/Supported%20languages-C%2C^Bitbake%2CShell-informational)
 ![python3.x](https://img.shields.io/badge/python-3.x-brightgreen.svg)
 
 ![meta-sirius](layer-logo.png) \
