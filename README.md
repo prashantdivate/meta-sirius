@@ -1,5 +1,5 @@
 # meta-sirius
-![https://img.shields.io/badge/Supported%20languages-C%2Citbake%2CShell-informational](https://img.shields.io/badge/Supported%20languages-C%2C^Bitbake%2CShell-informational)
+![https://img.shields.io/badge/Supported%20languages-C%2Cbitbake%2CShell-informational](https://img.shields.io/badge/Supported%20languages-C%2Cbitbake%2CShell-informational)
 ![python3.x](https://img.shields.io/badge/python-3.x-brightgreen.svg)
 
 ![meta-sirius](layer-logo.png) \
@@ -54,9 +54,13 @@ and to build SD card image (.wic)
 $ bitbake sirius-core-image-sd-card
 ```
 
-# Contribute
-Contributions are always welcome!  
-Please read the [contribution guidelines](contributing.md) first.
+### Get involved
+
+To get involved following things can be done
+
+- create an issue
+- fix an issue and create a pull request
+- see the pinned issues in the [bugtracker](https://github.com/prashantdivate/meta-sirius.git/issues)
 
 # License
 Use of this project is governed by the MIT License found at [LICENSE](./LICENSE).
