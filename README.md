@@ -1,8 +1,6 @@
 # meta-sirius
 ![python3.x](https://img.shields.io/badge/python-3.x-brightgreen.svg)
-
 ![meta-sirius](layer-logo.png)
-
 A Yocto BSP meta-layer includes all the necessary recipes intended to use in yocto project \
 for hands-on experience of creating own image adding supported recipes in the build.
 
