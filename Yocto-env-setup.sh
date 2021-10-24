@@ -22,7 +22,7 @@ echo -e "      \/     \/          \/               \/                        \/ 
 echo -e "                                                                                 "
 echo -e "${CYAN}[>] Created by : ${NC} Prashant Divate"
 echo -e "${CYAN}[>] Version    : ${NC} 1.0.0\n"
-echo -e "${CYAN}[>] Teste env  : ${NC} Ubuntu 20.04\n"
+echo -e "${CYAN}[>] Tested env : ${NC} Ubuntu 20.04\n"
 
 #Functions
 FAIL() {
