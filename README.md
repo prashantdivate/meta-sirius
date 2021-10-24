@@ -4,6 +4,12 @@
 ![languages](https://img.shields.io/badge/Supported%20lang-c,shell,bitbake-blue.svg?style=plastic)
 ![star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 
+<br />
+<div align="center">
+  <a href="https://github.com/prashantdivate/meta-sirius">
+    <img src="layer-logo.png" alt="Logo">
+  </a>
+
 ![meta-sirius](layer-logo.png) \
 A Yocto BSP meta-layer includes all the necessary recipes intended to use in yocto project \
 for hands-on experience of creating own image adding supported recipes in the build.
