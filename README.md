@@ -16,14 +16,22 @@ for hands-on experience of creating own image adding supported recipes in the bu
 * C program binary(helloword) installed in OS
 
 ## Setting up
+
 #### Clone the repository 
 
 ```
 $ git clone https://github.com/prashantdivate/meta-sirius.git -b master
 $ cd meta-sirius
 ```
+#### 1. Yocto Environment set-up from scratch
 
-#### Adding the custom layer to your build
+Run the below command and you will get all the env inplace at ${HOME}/Yocto-Sirius 
+```
+$ source Yocto-env-setup.sh
+```
+###                    OR 
+
+#### 2. Adding the meta-sirius layer to your existing build
 
 In order to use this layer, you need to make the build system aware of it.
 
@@ -45,13 +53,13 @@ In order to build image, initiate yocto build setup by running
 ```
 $ source setup-environment <build-dir>
 ```
-Run the below command to build basic image
+Run the below command to build dev image
 ```
-$ bitbake sirius-core-image
+$ bitbake sirius-dev-image
 ```
 and to build SD card image (.wic)
 ```
-$ bitbake sirius-core-image-sd-card
+$ bitbake sirius-sd-card-image
 ```
 
 ### Get involved
