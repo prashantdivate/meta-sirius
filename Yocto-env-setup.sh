@@ -7,9 +7,6 @@ YELLOW='\033[0;33m'
 CYAN='\033[36m'
 NC='\033[0m' # No Color
 
-FIRST_NAME="Prashant"
-LAST_NAME="Divte"
-EMAIL="prashant.d1@tataelxsi.co.in"
 YOCTODIR="Yocto-sirius"
 
 echo -e ""
