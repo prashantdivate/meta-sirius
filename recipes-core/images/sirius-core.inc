@@ -1,5 +1,5 @@
 IMAGE_INSTALL += "\
-		base-files \
+	base-files \
         base-passwd \
         busybox \
         sysvinit \
