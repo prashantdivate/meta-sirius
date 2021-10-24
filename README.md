@@ -1,7 +1,7 @@
 # meta-sirius
-![Ubuntu-ver](https://img.shields.io/badge/Ubuntu%20ver-20.04-lightpink.svg)
-![python3.x](https://img.shields.io/badge/python-3.x-orange.svg)
-![languages](https://img.shields.io/badge/Supported%20lang-c,shell,bitbake-blue.svg)
+![Ubuntu-ver](https://img.shields.io/badge/Ubuntu%20ver-20.04-lightpink.svgs?tyle=plastic&logo=linux)
+![python3.x](https://img.shields.io/badge/python-3.x-orange.svg?style=plastic)
+![languages](https://img.shields.io/badge/Supported%20lang-c,shell,bitbake-blue.svg?style=plastic)
 
 ![meta-sirius](layer-logo.png) \
 A Yocto BSP meta-layer includes all the necessary recipes intended to use in yocto project \
