@@ -11,11 +11,12 @@ for hands-on experience of creating own image adding supported recipes in the bu
 
 ## What's included?
 
-* Custom minimal image
+* Own custom image
 * SD card image or wic image
 * Extra user add support
 * Support for running userspace application at booting time
-* C program binary(helloword) installed in OS
+* Own C-program (helloword) installed in OS
+* wolfssl security library support
 
 ## Setting up
 
@@ -59,7 +60,7 @@ Run the below command to build dev image
 ```
 $ bitbake sirius-dev-image
 ```
-and to build SD card image (.wic)
+and to build SD card image (wic.gz)
 ```
 $ bitbake sirius-sd-card-image
 ```
