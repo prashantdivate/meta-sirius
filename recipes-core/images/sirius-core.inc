@@ -5,6 +5,7 @@ IMAGE_INSTALL += "\
         sysvinit \
         sysvinit-launch \
         helloworld \
+	wolfssl \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
