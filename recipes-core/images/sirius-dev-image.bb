@@ -7,7 +7,7 @@ inherit core-image buildhistory
 include sirius-image.inc
 
 IMAGE_INSTALL += "\
-		htop \
+		packagegroup-debug-utils \
 		nano \
 		vim \
 "

@@ -6,5 +6,6 @@ inherit packagegroup
 
 RDEPENDS_${PN} = "\
     strace \
+    htop \
     perf \
 "
