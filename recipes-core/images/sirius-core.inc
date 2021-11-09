@@ -9,8 +9,10 @@ IMAGE_INSTALL += "\
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
+
+inherit OSversion extrausers
+
 # Set default password for 'root' user
-inherit extrausers
 ROOTPASSWORD = "root"
 ROOTUSERNAME = "root"
 EXTRA_USERS_PARAMS ?= "usermod -P ${ROOTPASSWORD} ${ROOTUSERNAME};"
