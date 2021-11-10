@@ -17,6 +17,8 @@ for hands-on experience of creating own image adding supported recipes in the bu
 * Support for running userspace application at booting time
 * Own C-program (helloword) installed in OS
 * wolfssl security library support
+* OSversion info in the RootFS
+* custom image specific defconfig
 
 ## Setting up
 
