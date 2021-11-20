@@ -3,7 +3,7 @@ IMAGE_INSTALL += "\
         base-passwd \
         busybox \
         sysvinit \
-        sysvinit-launch \
+        booting-app \
         helloworld \
 	wolfssl \
 "
