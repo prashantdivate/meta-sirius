@@ -1,9 +1,8 @@
-From 44479bf5eaee27775fcaa863936c982824d5ea6f Mon Sep 17 00:00:00 2001
 From: Prashant Divate <diwateprashant44@gmail.com>
 Date: Tue, 25 May 2021 17:57:13 +0530
 Subject: [PATCH] ARM: sirius: defconfig: Add initial defconfig
 
-Add an initial defconfig to get started.
+Add an initial defconfig to get started. Currently configurations are set to headless devices.
 ---
  .../sirius_defconfig       | 3129 ++++++++++++++++++++
  1 file changed, 3129 insertions(+)
