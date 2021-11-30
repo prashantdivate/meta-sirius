@@ -2,10 +2,9 @@ IMAGE_INSTALL += "\
 	base-files \
         base-passwd \
         busybox \
-        sysvinit \
-        booting-app \
+        e2fsprogs \
         helloworld \
-	wolfssl \
+        wolfssl \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
