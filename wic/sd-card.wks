@@ -13,6 +13,8 @@
 part SPL --source rawcopy --sourceparams="file=SPL" --ondisk mmcblk --no-table --align 1
 part u-boot --source rawcopy --sourceparams="file=u-boot.img" --ondisk mmcblk --no-table --align 69
 part / --source rootfs --ondisk mmcblk --fstype=ext4 --label root --align 4096
-part /data --ondisk mmcblk --fstype=ext4 --label data --align 4096 --size 128
+part /home --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/home --ondisk sda --fstype=ext4 --label home --align 8192
+part /log --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/opt/log --ondisk sda --fstype=ext4 --label opt --align 8192
+#part /data --ondisk mmcblk --fstype=ext4 --label data --align 4096 --size 128
 
 bootloader --ptable msdos
