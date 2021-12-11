@@ -11,6 +11,7 @@ for hands-on experience of creating own image adding supported recipes in the bu
 
 ## What's included?
 
+* systemd support
 * Own custom image
 * SD card image or wic image
 * Extra user add support
