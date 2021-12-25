@@ -1,3 +1,6 @@
+# short-description: Create a partitioned image for the Sirius-comm board (variscite imx6ul)
+# long-description: Create a partitioned image for the Sirius-comm board (variscite imx6ul)
+
 # Create an image that can be written onto a SD card using dd for use
 # with i.MX SoC family.
 # It uses SPL and u-boot
