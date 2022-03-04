@@ -10,9 +10,9 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 PROVIDES += "cyassl"
-RPROVIDES_${PN} = "cyassl"
+RPROVIDES:${PN} = "cyassl"
 PROVIDES += "wolfssl"
-RPROVIDES_${PN} = "wolfssl"
+RPROVIDES:${PN} = "wolfssl"
 
 SRC_URI[md5sum] = "07cdb0d6ec7f927e33c91f2ad543325e"
 SRC_URI[sha256sum] = "149299b90a6546a91e781c645187254d19c510286bc0c2bffaad0326ad5a8b6e"
