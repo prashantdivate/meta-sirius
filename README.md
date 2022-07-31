@@ -26,7 +26,7 @@ for hands-on experience of creating own image adding supported recipes in the bu
 #### Clone the repository 
 
 ```
-$ git clone https://github.com/prashantdivate/meta-sirius.git -b master
+$ git clone https://github.com/prashantdivate/meta-sirius.git -b honister
 $ cd meta-sirius
 ```
 #### 1. Yocto Environment set-up from scratch
