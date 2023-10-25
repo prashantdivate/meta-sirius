@@ -21,6 +21,7 @@ for hands-on experience of creating own image adding supported recipes in the bu
 * OSversion info in the RootFS
 * custom image specific defconfig
 * oelint-adv integration and commit-msg formatting
+* Add support for RDP connection for wayland applications
 
 ## Setting up
 
@@ -80,6 +81,42 @@ $ cp -pPR scripts/commit-msg .git/hooks/commit-msg
 ```
 
 NOTE: You can copy these hooks to other layers as well for formatting using oelint
+
+#### Use RDP connection for Wayland applications
+weston should build with rdp-compositor and screen sharing enabled and is taken care in weston\_%.bbappend file
+The rdp compositor have dependency on **freerdp**
+
+**On target**
+1. Install the freerdp package on target. Make sure you have the TLS certificate/key (server.crt and server.key) installed generally at /etc/freerdp/keys dir
+To generate certs use below command
+```
+ $ winpr-makecert -rdp -path $PWD
+```
+2. Add the following configs to weston.ini file
+```
+[core]
+modules=systemd-notify.so
+
+[screen-share]
+command=/usr/bin64/weston --backend=rdp-backend.so --shell=fullscreen-shell.so --rdp-tls-cert=/etc/freerdp/keys/server.crt --rdp-tls-key=/etc/freerdp/keys/server.key --no-clients-resize
+start-on-startup=true
+```
+3. launch weston with following command
+```
+weston --debug --ttty=1 --backend=fbdev-backend.so --modules=systemd-notify.so,screen-share.so --use-gl=1 --log=${XDG_RUNTIME_DIR}/weston.log $OPTARGS
+```
+
+**On Host**
+launch the rdp client:
+* For Wayland
+```
+wlfreerdp /v:<target_ip> /log-level:TRACE
+```
+* For X11
+```
+xfreerdp /v:<target_ip>
+```
+Additionally you can Use remmina as well to connect with target
 
 ### Get involved
 
