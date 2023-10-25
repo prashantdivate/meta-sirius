@@ -21,7 +21,7 @@ for hands-on experience of creating own image adding supported recipes in the bu
 * OSversion info in the RootFS
 * custom image specific defconfig
 * oelint-adv integration and commit-msg formatting
-* Add support for RDP connection for wayland applications
+* Add support for Remote Desktop Protocol (RDP) connection for wayland applications
 
 ## Setting up
 
@@ -82,7 +82,7 @@ $ cp -pPR scripts/commit-msg .git/hooks/commit-msg
 
 NOTE: You can copy these hooks to other layers as well for formatting using oelint
 
-#### Use RDP connection for Wayland applications
+#### Use Remote Desktop Protocol to access Wayland applications
 weston should build with rdp-compositor and screen sharing enabled and is taken care in weston\_%.bbappend file
 The rdp compositor have dependency on **freerdp**
 
