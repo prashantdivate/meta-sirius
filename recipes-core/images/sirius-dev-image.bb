@@ -10,6 +10,7 @@ IMAGE_INSTALL += "\
 		packagegroup-debug-utils \
 		nano \
 		vim \
+        helpers \
 "
 
 BUILDHISTORY_COMMIT = "2"

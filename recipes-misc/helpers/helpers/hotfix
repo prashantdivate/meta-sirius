@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "Executing ostree admin unlock --hotfix; please wait about 45s"
+ostree admin unlock --hotfix
