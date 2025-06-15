@@ -5,6 +5,7 @@ IMAGE_INSTALL += "\
         e2fsprogs \
         helloworld \
         wolfssl \
+        cloud-utils-growpart \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
