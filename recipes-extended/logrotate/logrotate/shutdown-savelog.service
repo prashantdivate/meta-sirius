@@ -1,0 +1,9 @@
+[Unit]
+Description=save log files to /var/log at shutdown
+
+[Service]
+ExecStop=/usr/sbin/logrotate /etc/logrotate.conf -f
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

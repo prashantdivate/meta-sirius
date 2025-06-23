@@ -1,0 +1,13 @@
+[Unit]
+Description=Rotate log files
+Documentation=man:logrotate(8) man:logrotate.conf(5)
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+ExecStartPre=-/bin/sh -c "sed -i -E '/1970-1|1969-1/d' /var/lib/logrotate.status"
+ExecStartPre=-/usr/local/bin/cleanlog
+ExecStart=/usr/sbin/logrotate  /etc/logrotate.conf
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
