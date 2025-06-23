@@ -6,6 +6,7 @@ IMAGE_INSTALL += "\
         helloworld \
         wolfssl \
         cloud-utils-growpart \
+        logrotate \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
