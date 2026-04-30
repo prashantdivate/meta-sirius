@@ -1,0 +1,22 @@
+{
+    "$schema": "https://github.com",
+    "modules": [
+        "title",
+        "separator",
+        "os",
+        "host",
+        "kernel",
+        "uptime",
+        "packages",
+        "shell",
+        "display",
+        "cpu",
+        "gpu",
+        "memory",
+        "disk",
+        "localip",
+        "break",
+        "colors"
+    ]
+}
+

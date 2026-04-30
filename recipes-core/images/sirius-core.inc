@@ -7,6 +7,7 @@ IMAGE_INSTALL += "\
         wolfssl \
         cloud-utils-growpart \
         logrotate \
+        fastfetch \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
