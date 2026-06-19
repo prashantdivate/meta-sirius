@@ -1,0 +1,232 @@
+name: meta-sirius CI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - kirkstone
+      - scarthgap
+    paths:
+      - "**.bb"
+      - "**.bbappend"
+      - "**.bbclass"
+      - "conf/**"
+      - "classes/**"
+      - "recipes-*/**"
+      - "wic/**"
+      - "scripts/**"
+      - "docs/**"
+      - "README.md"
+      - ".github/workflows/**"
+
+  pull_request:
+    branches:
+      - master
+      - main
+      - kirkstone
+      - scarthgap
+    paths:
+      - "**.bb"
+      - "**.bbappend"
+      - "**.bbclass"
+      - "conf/**"
+      - "classes/**"
+      - "recipes-*/**"
+      - "wic/**"
+      - "scripts/**"
+      - "docs/**"
+      - "README.md"
+      - ".github/workflows/**"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: meta-sirius-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  YOCTO_BRANCH: kirkstone
+  MACHINE: qemux86-64
+  DISTRO: poky
+  BUILD_DIR: build
+  TARGET_IMAGE: sirius-dev-image
+
+jobs:
+  repository-checks:
+    name: Repository checks
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout meta-sirius
+        uses: actions/checkout@v4
+
+      - name: Show repository tree
+        run: |
+          echo "Repository layout:"
+          find . -maxdepth 3 -type f | sort
+
+      - name: Check required files
+        run: |
+          test -f README.md
+          test -f LICENSE
+          test -f conf/layer.conf
+          test -d recipes-core
+          test -d recipes-security
+          test -d recipes-graphics
+          test -d docs
+          test -f docs/logo.png
+          test -f docs/fail2ban.md
+          test -f docs/wayland-rdp.md
+          test -f docs/shellhub.md
+
+      - name: Check shell scripts syntax
+        run: |
+          find scripts -type f -name "*.sh" -print -exec bash -n {} \;
+          if [ -f Yocto-env-setup.sh ]; then
+            bash -n Yocto-env-setup.sh
+          fi
+
+      - name: Check executable scripts
+        run: |
+          if [ -f scripts/oelint-check.sh ]; then
+            chmod +x scripts/oelint-check.sh
+          fi
+
+      - name: Check README links to docs
+        run: |
+          grep -q "docs/logo.png" README.md
+          grep -q "docs/fail2ban.md" README.md
+          grep -q "docs/wayland-rdp.md" README.md
+          grep -q "docs/shellhub.md" README.md
+
+  oelint:
+    name: oelint-adv
+    runs-on: ubuntu-24.04
+    needs: repository-checks
+
+    steps:
+      - name: Checkout meta-sirius
+        uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install oelint-adv
+
+      - name: Run oelint-adv
+        run: |
+          oelint-adv . \
+            --suppress oelint.var.mandatoryvar.SUMMARY \
+            --suppress oelint.var.mandatoryvar.DESCRIPTION
+
+  yocto-parse:
+    name: Yocto parse check
+    runs-on: ubuntu-24.04
+    needs: oelint
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout meta-sirius
+        uses: actions/checkout@v4
+
+      - name: Install Yocto host dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio \
+            python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping \
+            python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales \
+            libacl1
+
+          sudo locale-gen en_US.UTF-8
+
+      - name: Clone Poky
+        run: |
+          mkdir -p "${RUNNER_TEMP}/yocto"
+          cd "${RUNNER_TEMP}/yocto"
+          git clone --depth 1 --branch "${YOCTO_BRANCH}" https://git.yoctoproject.org/poky
+
+      - name: Clone meta-openembedded
+        run: |
+          cd "${RUNNER_TEMP}/yocto"
+          git clone --depth 1 --branch "${YOCTO_BRANCH}" https://git.openembedded.org/meta-openembedded
+
+      - name: Configure Yocto build
+        shell: bash
+        run: |
+          cd "${RUNNER_TEMP}/yocto"
+          source poky/oe-init-build-env "${BUILD_DIR}"
+
+          echo 'MACHINE = "${{ env.MACHINE }}"' >> conf/local.conf
+          echo 'DISTRO = "${{ env.DISTRO }}"' >> conf/local.conf
+          echo 'PACKAGE_CLASSES = "package_ipk"' >> conf/local.conf
+          echo 'EXTRA_IMAGE_FEATURES += "debug-tweaks"' >> conf/local.conf
+
+          bitbake-layers add-layer "${GITHUB_WORKSPACE}"
+          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-oe"
+          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-python"
+          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-networking"
+          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-filesystems"
+
+          bitbake-layers show-layers
+
+      - name: Validate layer and recipes
+        shell: bash
+        run: |
+          cd "${RUNNER_TEMP}/yocto"
+          source poky/oe-init-build-env "${BUILD_DIR}"
+
+          echo "Available meta-sirius recipes:"
+          bitbake-layers show-recipes | grep -E "sirius|fail2ban|shellhub|wolfssl|helloworld|fastfetch|waypipe|lolcat" || true
+
+          echo "Checking configured layers:"
+          bitbake-layers show-layers
+
+          echo "Running BitBake parse check:"
+          bitbake -p
+
+      - name: Check target image exists
+        shell: bash
+        run: |
+          cd "${RUNNER_TEMP}/yocto"
+          source poky/oe-init-build-env "${BUILD_DIR}"
+
+          bitbake-layers show-recipes "${TARGET_IMAGE}" || {
+            echo "ERROR: ${TARGET_IMAGE} recipe not found"
+            exit 1
+          }
+
+  dry-run-summary:
+    name: CI summary
+    runs-on: ubuntu-24.04
+    needs:
+      - repository-checks
+      - oelint
+      - yocto-parse
+    if: always()
+
+    steps:
+      - name: Print CI result
+        run: |
+          echo "Repository checks: ${{ needs.repository-checks.result }}"
+          echo "oelint-adv:        ${{ needs.oelint.result }}"
+          echo "Yocto parse:       ${{ needs.yocto-parse.result }}"
+
+          if [ "${{ needs.repository-checks.result }}" != "success" ]; then
+            exit 1
+          fi
+
+          if [ "${{ needs.oelint.result }}" != "success" ]; then
+            exit 1
+          fi
+
+          if [ "${{ needs.yocto-parse.result }}" != "success" ]; then
+            exit 1
+          fi
+
+          echo "meta-sirius CI completed successfully."
+
