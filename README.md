@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/prashantdivate/meta-sirius/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/prashantdivate/meta-sirius/build.yml?label=CI&style=flat-square" alt="CI status">
+    <img src="https://img.shields.io/github/actions/workflow/status/prashantdivate/meta-sirius/ci.yml?label=CI&style=flat-square" alt="CI status">
   </a>
   <a href="https://github.com/prashantdivate/meta-sirius/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/prashantdivate/meta-sirius?style=flat-square" alt="License">
