@@ -8,4 +8,5 @@ RDEPENDS:${PN} = "\
     strace \
     htop \
     perf \
+    shellhub-agent \
 "
