@@ -58,7 +58,7 @@ env:
 jobs:
   repository-checks:
     name: Repository checks
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout meta-sirius
@@ -105,7 +105,7 @@ jobs:
 
   oelint:
     name: oelint-adv
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs: repository-checks
 
     steps:
@@ -125,7 +125,7 @@ jobs:
 
   yocto-parse:
     name: Yocto parse check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs: oelint
     timeout-minutes: 90
 
@@ -202,7 +202,7 @@ jobs:
 
   dry-run-summary:
     name: CI summary
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - repository-checks
       - oelint
