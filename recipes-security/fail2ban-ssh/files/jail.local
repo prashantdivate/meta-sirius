@@ -1,0 +1,13 @@
+[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1
+bantime = 300
+findtime = 600
+maxretry = 2
+backend = polling
+banaction = nftables-sshd
+
+[sshd]
+enabled = true
+port = 22
+filter = sshd-custom
+logpath = /var/log/messages

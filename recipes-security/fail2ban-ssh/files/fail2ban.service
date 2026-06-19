@@ -1,0 +1,13 @@
+[Unit]
+Description=Fail2Ban Service
+After=network.target sirius-nftables.service sshd.socket
+Requires=mados-nftables.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fail2ban-server -xf start
+ExecStop=/usr/bin/fail2ban-client stop
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

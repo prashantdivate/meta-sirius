@@ -1,0 +1,13 @@
+[Unit]
+Description=Sirius OS nftables firewall
+DefaultDependencies=no
+Before=network-pre.target sshd.socket fail2ban.service
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/nft -f /etc/nftables.conf
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

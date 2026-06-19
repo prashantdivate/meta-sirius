@@ -8,6 +8,9 @@ IMAGE_INSTALL += "\
         cloud-utils-growpart \
         logrotate \
         fastfetch \
+        nftables \
+        python3-fail2ban \
+        fail2ban-ssh \
 "
 IMAGE_ROOTFS_SIZE ?= "8192"
 
