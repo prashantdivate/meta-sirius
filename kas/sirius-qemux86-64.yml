@@ -1,4 +1,3 @@
-```yaml
 header:
   version: 14
 
@@ -40,5 +39,4 @@ local_conf_header:
     PARALLEL_MAKE ?= "-j2"
 
     CONF_VERSION = "2"
-```
 
