@@ -1,0 +1,92 @@
+name: meta-sirius image build
+
+on:
+  workflow_dispatch:
+    inputs:
+      kas_config:
+        description: "kas configuration file"
+        required: true
+        default: "kas/sirius-qemux86-64.yml"
+      target:
+        description: "BitBake target to build"
+        required: true
+        default: "sirius-dev-image"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: meta-sirius-image-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-image:
+    name: Build Yocto image
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout meta-sirius
+        uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h
+
+      - name: Install Yocto host dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio \
+            python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping \
+            python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales \
+            libacl1
+
+          sudo locale-gen en_US.UTF-8
+
+      - name: Install kas
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install kas
+
+      - name: Show kas version
+        run: |
+          kas --version
+
+      - name: Fetch Yocto repositories
+        run: |
+          kas checkout "${{ github.event.inputs.kas_config }}"
+
+      - name: Show configured layers
+        run: |
+          kas shell "${{ github.event.inputs.kas_config }}" -c "bitbake-layers show-layers"
+
+      - name: Run BitBake parse check
+        run: |
+          kas shell "${{ github.event.inputs.kas_config }}" -c "bitbake -p"
+
+      - name: Build image
+        run: |
+          kas shell "${{ github.event.inputs.kas_config }}" -c "bitbake ${{ github.event.inputs.target }}"
+
+      - name: Show deployed artifacts
+        if: always()
+        run: |
+          find build/tmp/deploy/images -maxdepth 3 -type f 2>/dev/null | sort || true
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yocto-build-logs
+          path: |
+            build/tmp/log/
+            build/tmp/work/**/temp/log.*
+            build/tmp/work/**/temp/run.*
+          if-no-files-found: ignore
+          retention-days: 7
+
