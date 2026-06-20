@@ -8,5 +8,6 @@ RDEPENDS:${PN} = "\
     strace \
     htop \
     perf \
-    shellhub-agent \
 "
+
+RDEPENDS:${PN}:append = "${@bb.utils.contains('SIRIUS_ENABLE_SHELLHUB', '1', ' shellhub-agent', '', d)}"

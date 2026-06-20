@@ -130,8 +130,7 @@ meta-sirius/
 ├── scripts/                    # Developer workflow helper scripts
 ├── wic/                        # WIC image layout files
 ├── LICENSE
-├── README.md
-└── Yocto-env-setup.sh
+└── README.md
 ```
 ---
 
@@ -516,25 +515,6 @@ bitbake-layers show-recipes
 oelint-adv .
 ```
 
-For stronger validation, add a reproducible build configuration using `kas` and build at least one image in CI.
-
-Recommended future workflow:
-
-```text
-.github/workflows/
-└── build.yml
-
-kas/
-├── sirius-qemux86-64.yml
-└── sirius-dev.yml
-```
-
-Example future command:
-
-```sh
-kas build kas/sirius-dev.yml
-```
-
 ---
 
 ## Roadmap
@@ -542,7 +522,6 @@ kas build kas/sirius-dev.yml
 Planned and recommended improvements:
 
 * Add support for newer Yocto releases
-* Add `kas` build configuration
 * Improve CI validation
 * Add runtime image testing
 * Add documentation for each major recipe
@@ -583,7 +562,6 @@ Before using this layer for production devices, review the following areas:
 
 ### Reproducibility
 
-* Add `kas` configuration
 * Pin compatible layer branches
 * Document tested host OS versions
 * Add locked dependency versions where needed

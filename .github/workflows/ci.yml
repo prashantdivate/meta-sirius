@@ -86,9 +86,6 @@ jobs:
       - name: Check shell scripts syntax
         run: |
           find scripts -type f -name "*.sh" -print -exec bash -n {} \;
-          if [ -f Yocto-env-setup.sh ]; then
-            bash -n Yocto-env-setup.sh
-          fi
 
       - name: Check executable scripts
         run: |
