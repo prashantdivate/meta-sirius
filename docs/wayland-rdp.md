@@ -18,7 +18,7 @@ This is useful for:
 
 * Remotely viewing Wayland applications
 * Debugging graphical applications
-* Accessing display output from headless or remote boards
+* Accessing display output from headless or remote devices
 * Demonstrating embedded GUI applications without a physical monitor
 * Testing Weston and Wayland integration in a Yocto image
 
@@ -166,7 +166,7 @@ For example, systems with DRM/KMS support may use a DRM backend instead of fbdev
 
 After Weston starts successfully on the target, connect from the host machine.
 
-Replace `<target-ip>` with the IP address of your target board.
+Replace `<target-ip>` with the IP address of your target device.
 
 ### From a Wayland host
 
@@ -288,7 +288,7 @@ wayland-backend.so
 headless-backend.so
 ```
 
-Adjust the Weston command based on your board, GPU, display stack, and Yocto configuration.
+Adjust the Weston command based on your device, GPU, display stack, and Yocto configuration.
 
 ---
 
