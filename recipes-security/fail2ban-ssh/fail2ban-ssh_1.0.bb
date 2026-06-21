@@ -9,7 +9,7 @@ SRC_URI = " \
     file://sshd-custom.conf \
     file://nftables.conf \
     file://nftables-sshd.conf \
-    file://mados-nftables.service \
+    file://sirius-nftables.service \
     file://fail2ban.service \
 "
 
@@ -29,18 +29,18 @@ do_install() {
     install -m 0644 ${WORKDIR}/nftables.conf ${D}${sysconfdir}/nftables.conf
 
     install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/mados-nftables.service ${D}${systemd_system_unitdir}/mados-nftables.service
+    install -m 0644 ${WORKDIR}/sirius-nftables.service ${D}${systemd_system_unitdir}/sirius-nftables.service
     install -m 0644 ${WORKDIR}/fail2ban.service ${D}${systemd_system_unitdir}/fail2ban.service
 }
 
 RDEPENDS:${PN} += "python3-fail2ban nftables openssh-sshd"
 
-SYSTEMD_SERVICE:${PN} = "mados-nftables.service fail2ban.service"
+SYSTEMD_SERVICE:${PN} = "sirius-nftables.service fail2ban.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 FILES:${PN} += " \
     ${sysconfdir}/fail2ban \
     ${sysconfdir}/nftables.conf \
-    ${systemd_system_unitdir}/mados-nftables.service \
+    ${systemd_system_unitdir}/sirius-nftables.service \
     ${systemd_system_unitdir}/fail2ban.service \
 "

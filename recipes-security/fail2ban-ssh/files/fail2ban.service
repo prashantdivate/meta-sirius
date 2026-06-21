@@ -1,7 +1,7 @@
 [Unit]
 Description=Fail2Ban Service
 After=network.target sirius-nftables.service sshd.socket
-Requires=mados-nftables.service
+Requires=sirius-nftables.service
 
 [Service]
 Type=simple

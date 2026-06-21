@@ -4,7 +4,7 @@ LICENSE = "MIT"
 
 inherit core-image buildhistory
 
-include sirius-image.inc
+include sirius-core.inc
 
 IMAGE_INSTALL += "\
 		packagegroup-debug-utils \

@@ -2,7 +2,7 @@ DESCRIPTION = "Minimal configuration os image for SD card"
 
 LICENSE = "MIT"
 
-include sirius-image.inc
+include sirius-core.inc
 
 IMAGE_INSTALL = "packagegroup-core-boot "
 
