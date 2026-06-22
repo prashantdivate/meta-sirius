@@ -315,7 +315,7 @@ Additional documentation is available under the `docs/` directory.
 | [`docs/fail2ban.md`](docs/fail2ban.md) | Fail2ban setup and usage guide   |
 | [`docs/shellhub.md`](docs/shellhub.md) | ShellHub agent setup for secure reverse SSH and zero-touch IoT fleet onboarding |
 | [`docs/wayland-rdp.md`](docs/wayland-rdp.md) | Wayland/Weston RDP remote access setup |
-| [`docs/qemu-testing.md`](docs/qemu-testing.md) | QEMU runtime testing for `sirius-dev-image` |
+| [`docs/qemu-testing.md`](docs/qemu-testing.md) | Basic local QEMU build and run guide for `sirius-dev-image` |
 
 ---
 

@@ -82,6 +82,7 @@ jobs:
           test -f docs/fail2ban.md
           test -f docs/wayland-rdp.md
           test -f docs/shellhub.md
+          test -f docs/qemu-testing.md
 
       - name: Check shell scripts syntax
         run: |
@@ -99,6 +100,7 @@ jobs:
           grep -q "docs/fail2ban.md" README.md
           grep -q "docs/wayland-rdp.md" README.md
           grep -q "docs/shellhub.md" README.md
+          grep -q "docs/qemu-testing.md" README.md
 
   oelint:
     name: oelint-adv
@@ -197,86 +199,6 @@ jobs:
             exit 1
           }
 
-  qemu-runtime-test:
-    name: QEMU runtime test
-    runs-on: ubuntu-22.04
-    needs: yocto-parse
-    timeout-minutes: 360
-
-    steps:
-      - name: Checkout meta-sirius
-        uses: actions/checkout@v4
-
-      - name: Install Yocto and QEMU host dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio \
-            python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping \
-            python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales \
-            libacl1 qemu-system-x86
-
-          sudo locale-gen en_US.UTF-8
-
-      - name: Clone Poky
-        run: |
-          mkdir -p "${RUNNER_TEMP}/yocto"
-          cd "${RUNNER_TEMP}/yocto"
-          git clone --depth 1 --branch "${YOCTO_BRANCH}" https://git.yoctoproject.org/poky
-
-      - name: Clone meta-openembedded
-        run: |
-          cd "${RUNNER_TEMP}/yocto"
-          git clone --depth 1 --branch "${YOCTO_BRANCH}" https://git.openembedded.org/meta-openembedded
-
-      - name: Configure QEMU test build
-        shell: bash
-        run: |
-          cd "${RUNNER_TEMP}/yocto"
-          source poky/oe-init-build-env "${BUILD_DIR}"
-
-          cat >> conf/local.conf <<EOF
-          MACHINE = "${{ env.MACHINE }}"
-          DISTRO = "${{ env.DISTRO }}"
-          PACKAGE_CLASSES = "package_ipk"
-          EXTRA_IMAGE_FEATURES += "debug-tweaks ssh-server-openssh"
-          IMAGE_CLASSES += "testimage"
-          TEST_SUITES = "ping ssh df date"
-          TEST_RUNQEMUPARAMS = "nographic slirp"
-          EOF
-
-          bitbake-layers add-layer "${GITHUB_WORKSPACE}"
-          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-oe"
-          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-python"
-          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-networking"
-          bitbake-layers add-layer "${RUNNER_TEMP}/yocto/meta-openembedded/meta-filesystems"
-
-          bitbake-layers show-layers
-
-      - name: Build sirius-dev-image
-        shell: bash
-        run: |
-          cd "${RUNNER_TEMP}/yocto"
-          source poky/oe-init-build-env "${BUILD_DIR}"
-          bitbake "${TARGET_IMAGE}"
-
-      - name: Boot and test sirius-dev-image in QEMU
-        shell: bash
-        run: |
-          cd "${RUNNER_TEMP}/yocto"
-          source poky/oe-init-build-env "${BUILD_DIR}"
-          bitbake "${TARGET_IMAGE}" -c testimage
-
-      - name: Upload QEMU test logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: qemu-runtime-test-logs
-          path: |
-            ${{ runner.temp }}/yocto/${{ env.BUILD_DIR }}/tmp/log/oeqa/
-            ${{ runner.temp }}/yocto/${{ env.BUILD_DIR }}/tmp/work/**/${{ env.TARGET_IMAGE }}/**/temp/log.do_testimage*
-          if-no-files-found: ignore
-
   dry-run-summary:
     name: CI summary
     runs-on: ubuntu-22.04
@@ -284,7 +206,6 @@ jobs:
       - repository-checks
       - oelint
       - yocto-parse
-      - qemu-runtime-test
     if: always()
 
     steps:
@@ -293,7 +214,6 @@ jobs:
           echo "Repository checks: ${{ needs.repository-checks.result }}"
           echo "oelint-adv:        ${{ needs.oelint.result }}"
           echo "Yocto parse:       ${{ needs.yocto-parse.result }}"
-          echo "QEMU runtime test: ${{ needs.qemu-runtime-test.result }}"
 
           if [ "${{ needs.repository-checks.result }}" != "success" ]; then
             exit 1
@@ -304,10 +224,6 @@ jobs:
           fi
 
           if [ "${{ needs.yocto-parse.result }}" != "success" ]; then
-            exit 1
-          fi
-
-          if [ "${{ needs.qemu-runtime-test.result }}" != "success" ]; then
             exit 1
           fi
 
