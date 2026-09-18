@@ -68,6 +68,7 @@ meta-sirius currently includes support for the following features:
 * Boot-time userspace application support
 * Helper scripts and custom utilities
 * ShellHub integration support
+* nethogs - NetHogs is a small `net top` tool. Instead of breaking the traffic down per protocol or per subnet, like most tools do, it groups bandwidth by process.
 
 ### Security / Remote Access / Fleet Management features
 
